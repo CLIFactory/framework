@@ -31,9 +31,9 @@ if (!function_exists('cli_factory')) {
      *
      * @return void
      */
-    function cli_factory(Contracts\BaseConfigInterface $config = null): void
+    function cli_factory(Contracts\BaseConfigInterface $config): void
     {
-        (new Bootstrap($config ?? new BaseConfig()))->run();
+        (new Bootstrap($config))->run();
     }
 }
 
