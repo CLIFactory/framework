@@ -1,6 +1,0 @@
-language: php
-php:
-  - 'nightly'
-before_install:
-- composer install
-script: phpunit
