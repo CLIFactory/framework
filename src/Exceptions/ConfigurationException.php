@@ -6,5 +6,5 @@ use RuntimeException;
 
 class ConfigurationException extends RuntimeException
 {
-	protected $message = 'There was an error with your configuration';
+    protected $message = 'There was an error with your configuration';
 }
