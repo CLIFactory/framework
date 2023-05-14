@@ -18,7 +18,8 @@
     "autoload": {
         "files": ["src/Functions.php"],
         "psr-4": {
-            "CLIFactory\\": "src"
+            "CLIFactory\\": "src",
+            "Tests\\": "tests"
         }
     },
     "config": {

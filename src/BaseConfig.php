@@ -8,19 +8,29 @@ namespace CLIFactory {
     {
         /** @var array $commands Collection of commands */
         protected static array $commands = [];
-        /** @var string $name CLI Name */
-        public string $name;
-        /** @var string $version CLI Version */
-        public string $version;
 
-        /**
-         * Returns the collection of $commands
-         *
-         * @return array
-         */
+        /** @var string $name CLI Name */
+        protected string $name;
+
+        /** @var string $version CLI Version */
+        protected string $version;
+
+        /** @inheritdoc */
         public function commands(): array
         {
             return [...self::$commands, ...static::$commands];
+        }
+
+        /** @inheritdoc */
+        public function name(): string
+        {
+            return $this->name;
+        }
+
+        /** @inheritdoc */
+        public function version(): string
+        {
+            return $this->version;
         }
     }
 }

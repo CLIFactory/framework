@@ -43,10 +43,10 @@ namespace CLIFactory {
         {
             // let's make sure that the config class extends BaseConfig ...
             if (Cls::extends($this->config::class, BaseConfig::class)) {
-// loop through the commands in the $commands array
+                // loop through the commands in the $commands array
                 // of the config class
                 foreach ($this->config->commands() as $name => $class) {
-// add a new service to the psr container
+                    // add a new service to the psr container
                     $this->setContainerItem($name, $class);
 
                     // configure the symfony application
@@ -87,8 +87,8 @@ namespace CLIFactory {
          */
         private function buildApplication($name): void
         {
-            $this->application->setName($this->config->name);
-            $this->application->setVersion($this->config->version);
+            $this->application->setName($this->config->name());
+            $this->application->setVersion($this->config->version());
             $this->application->add($this->getContainerItem($name));
         }
 
