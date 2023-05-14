@@ -1,30 +1,22 @@
 {
-  "name": "jason-napolitano/project-template",
-  "type": "library",
-  "description": "A simple template for a PHP repository. Built for PHP 8 using Composer, Travis-CI, PSR-4 and PHPUnit 9!",
-  "homepage": "https://github.com/jason-napolitano/Project-Template",
-  "license": "MIT",
-  "version": "0.0.1",
-  "require": {
-    "php": "^8.2"
-  },
-  "require-dev": {
-      "phpunit/phpunit": "^9.5"
-  },
-  "autoload": {
-    "psr-4": {
-      "NamespaceName\\": "./src"
+    "name": "clifactory/framework",
+    "description": "A PHP 8 powered wrapper for Symfony Console.",
+    "version": "0.0.1",
+    "require": {
+        "php": "^8.2",
+        "symfony/console": "^v6.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.1.3",
+        "psr/log": "^3.0.0"
+    },
+    "autoload": {
+        "files": ["src/Functions.php"],
+        "psr-4": {
+            "CLIFactory\\": "src"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
     }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "./tests"
-    }
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "scripts": {
-      "test": "vendor/bin/phpunit ./tests --testdox"
-  }
 }
