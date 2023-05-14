@@ -2,8 +2,8 @@
 
 namespace CLIFactory\Exceptions;
 
-use Psr\Container\ContainerExceptionInterface;
 use Exception;
+use Psr\Container\ContainerExceptionInterface;
 
 class ContainerException extends Exception implements ContainerExceptionInterface
 {

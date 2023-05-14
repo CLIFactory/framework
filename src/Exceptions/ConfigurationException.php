@@ -2,9 +2,9 @@
 
 namespace CLIFactory\Exceptions;
 
-use CLIFactory\BaseConfig;
+use RuntimeException;
 
-class ConfigurationException extends \RuntimeException
+class ConfigurationException extends RuntimeException
 {
 	protected $message = 'There was an error with your configuration';
 }

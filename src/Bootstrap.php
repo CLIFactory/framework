@@ -1,4 +1,6 @@
-<?php namespace CLIFactory {
+<?php
+namespace CLIFactory {
+	
 	// imports
 	use CLIFactory\Helpers\Cls;
 	use Symfony\Component\Console;
@@ -72,22 +74,6 @@
 		}
 		
 		/**
-		 * Gets an item from the PSR container
-		 *
-		 * @param $name
-		 *
-		 * @return mixed
-		 *
-		 * @throws \Psr\Container\ContainerExceptionInterface
-		 * @throws \Psr\Container\NotFoundExceptionInterface
-		 * @throws \ReflectionException
-		 */
-		private function getContainerItem($name): mixed
-		{
-			return $this->container->get($name);
-		}
-		
-		/**
 		 * Build the symfony application
 		 *
 		 * @param $name
@@ -103,6 +89,22 @@
 			$this->application->setName($this->config->name);
 			$this->application->setVersion($this->config->version);
 			$this->application->add($this->getContainerItem($name));
+		}
+		
+		/**
+		 * Gets an item from the PSR container
+		 *
+		 * @param $name
+		 *
+		 * @return mixed
+		 *
+		 * @throws \Psr\Container\ContainerExceptionInterface
+		 * @throws \Psr\Container\NotFoundExceptionInterface
+		 * @throws \ReflectionException
+		 */
+		private function getContainerItem($name): mixed
+		{
+			return $this->container->get($name);
 		}
 		
 		/**
