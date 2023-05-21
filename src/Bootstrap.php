@@ -2,11 +2,10 @@
 
 namespace CLIFactory {
 
-    // imports
     use CLIFactory\Helpers\Cls;
     use Symfony\Component\Console;
-    use CLIFactory\Contracts\BaseConfigInterface;
-    use CLIFactory\Exceptions\ConfigurationException;
+    use CLIFactory\Contracts;
+    use CLIFactory\Exceptions;
 
     readonly class Bootstrap
     {
@@ -16,49 +15,57 @@ namespace CLIFactory {
         /** @var \CLIFactory\Container $container PSR- Container */
         private Container $container;
 
-
         /**
          * @param \CLIFactory\Contracts\BaseConfigInterface $config
          */
-        public function __construct(private BaseConfigInterface $config)
+        public function __construct(private Contracts\BaseConfigInterface $config)
         {
-            // symfony application
-            $this->application = new Console\Application();
-
-            // psr container
-            $this->container = new Container();
+	        // symfony application
+	        $this->application = new Console\Application();
+	        
+	        // psr container
+	        $this->container = new Container();
         }
 
         /**
          * The main entry point to the bootstrap process
          *
          * @return void
-         *
-         * @throws \Psr\Container\ContainerExceptionInterface
-         * @throws \Psr\Container\NotFoundExceptionInterface
-         * @throws \ReflectionException
-         * @throws \Exception
          */
         public function run(): void
         {
             // let's make sure that the config class extends BaseConfig ...
             if (Cls::extends($this->config::class, BaseConfig::class)) {
                 // loop through the commands in the $commands array
-                // of the config class
+                // within the config class
                 foreach ($this->config->commands() as $name => $class) {
                     // add a new service to the psr container
                     $this->setContainerItem($name, $class);
 
-                    // configure the symfony application
-                    $this->buildApplication($name);
+                    // configure the symfony command
+                    $this->application->add($this->getContainerItem($name));
                 }
 
-                // run the symfony application
-                $this->runApplication();
+                // build and run the symfony application
+                $this->build();
             }
 
             // ... if it doesn't, we need to throw a configuration error
-            $this->throwConfigurationException();
+            throw new Exceptions\ConfigurationException(
+                'Configuration class must extend ' . BaseConfig::class
+            );
+        }
+
+        /**
+         * Build the symfony application
+         *
+         * @return void
+         */
+        private function build(): void
+        {
+            $this->application->setName($this->config->name());
+            $this->application->setVersion($this->config->version());
+            $this->application->run();
         }
 
         /**
@@ -72,24 +79,6 @@ namespace CLIFactory {
         private function setContainerItem($name, $class): void
         {
             $this->container->set($name, new $class());
-        }
-
-        /**
-         * Build the symfony application
-         *
-         * @param $name
-         *
-         * @return void
-         *
-         * @throws \Psr\Container\ContainerExceptionInterface
-         * @throws \Psr\Container\NotFoundExceptionInterface
-         * @throws \ReflectionException
-         */
-        private function buildApplication($name): void
-        {
-            $this->application->setName($this->config->name());
-            $this->application->setVersion($this->config->version());
-            $this->application->add($this->getContainerItem($name));
         }
 
         /**
@@ -107,28 +96,5 @@ namespace CLIFactory {
         {
             return $this->container->get($name);
         }
-
-        /**
-         * Runs the symfony application
-         *
-         * @return void
-         *
-         * @throws \Exception
-         */
-        private function runApplication(): void
-        {
-            $this->application->run();
-        }
-
-        /**
-         * Throws a configuration exception
-         *
-         * @return void
-         */
-        private function throwConfigurationException(): void
-        {
-            throw new ConfigurationException('Configuration class must extend ' . BaseConfig::class);
-        }
     }
-
 }

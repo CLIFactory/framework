@@ -10,10 +10,10 @@ namespace CLIFactory {
         protected static array $commands = [];
 
         /** @var string $name CLI Name */
-        protected string $name;
+        protected static string $name;
 
         /** @var string $version CLI Version */
-        protected string $version;
+        protected static string $version;
 
         /** @inheritdoc */
         public function commands(): array
@@ -24,13 +24,13 @@ namespace CLIFactory {
         /** @inheritdoc */
         public function name(): string
         {
-            return $this->name;
+            return static::$name;
         }
 
         /** @inheritdoc */
         public function version(): string
         {
-            return $this->version;
+            return static::$version;
         }
     }
 }
