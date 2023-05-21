@@ -1,5 +1,5 @@
 {
-    "name": "clifactory/framework",
+    "name": "cli-factory/framework",
     "description": "A PHP 8 powered wrapper for Symfony Console.",
     "version": "0.0.1",
     "require": {

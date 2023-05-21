@@ -10,7 +10,7 @@ This package requires [Composer](https://getcomposer.org) to be used.
 
 ### Installation
 
-`composer require clifactory/framework`
+`composer require cli-factory/framework`
 
 #### Documentation
 The documentation can easily be found in the [wiki](https://github.com/CLIFactory/framework/wiki)
